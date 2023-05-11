@@ -1,38 +1,98 @@
-//массив
-const expenses = [];
+const LIMIT = 10000;
+const CURRENCY = 'CZK';
+const STATUS_IN_LIMIT = 'You are in limit';
+const STATUS_OUT_OF_LIMIT = 'You are out of limit';
+const STATUS_OUT_OF_LIMIT_CLASSNAME = 'status_red';
 
 const inputNode = document.querySelector('.js-input');
 const buttonNode = document.querySelector('.js-button');
 const historyNode = document.querySelector('.js-history');
+const sumNode = document.querySelector('.js-sum');
+const limitNode = document.querySelector('.js-limit');
+const statusNode = document.querySelector('.js-status');
 
+const expenses = [];
+
+init(expenses);
 //добавляем событие на кнопку, которая будет передавать значения в массив
 buttonNode.addEventListener('click', function() {
-  //1. Получаем значение из поля ввода
+  const expense = getExpanseFromUser();
 
-  //проверка первый способо
-  /*
-  if (inputNode.value === '') {
+  if (!expense) {
     return;
-  }*/
-  //проверка второй способ
+  }
+
+  trackExpanse(expense);
+ 
+  render(expenses);
+});
+
+function init(expenses) {
+  limitNode.innerText = LIMIT;
+  statusNode.innerText = STATUS_IN_LIMIT;
+  sumNode.innerText = calculateExpenses(expenses);
+};
+
+function trackExpanse(expense) {
+  expenses.push(expense);
+};
+
+
+function getExpanseFromUser() {
   if (!inputNode.value) {
-    return;
+    return null;
   }
 
   //преобразует полученные данные из строки в число
   const expense = Number(inputNode.value);
+
+  clearInput();
+
+  return expense;
+};
+
+function clearInput() {
   inputNode.value = '';
+};
 
-  //записывает данные в массив
-  //2. Сохраняем трату в список
-  expenses.push(expense);
+function calculateExpenses(expenses) {
+  let sum = 0;
 
-  //3. Выведем новый список трат
+  expenses.forEach(element => {
+    sum += element;
+  });
+
+  return sum;
+};
+
+function render(expenses) {
+  const sum = calculateExpenses(expenses);
+
+  renderHistory(expenses);
+  renderSum(sum);
+  renderStatus(sum);
+}
+
+function renderHistory(expenses) {
   let expensesListHTML = '';
 
   expenses.forEach(element => {
-    expensesListHTML += `<li>${element}</li>`;
+    expensesListHTML += `<li>${element} ${CURRENCY}</li>`;
   });
 
   historyNode.innerHTML = `<ol>${expensesListHTML}</ol>`;
-});
+}
+
+function renderSum(sum) {
+  sumNode.innerText = sum;
+}
+
+function renderStatus(sum) {
+  if (sum <= LIMIT) {
+    statusNode.innerText = STATUS_IN_LIMIT;
+    
+  } else {
+    statusNode.innerText = STATUS_OUT_OF_LIMIT;
+    statusNode.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
+  }
+}

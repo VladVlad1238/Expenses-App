@@ -5,3 +5,9 @@ body {
 .expenses__container {
   padding-top: 100px;
 }
+.status {
+  color: green;
+}
+.status_red {
+  color: red;
+}
