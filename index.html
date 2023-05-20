@@ -6,27 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles/reset.css">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles/index.css">
   <title>Expenses Application</title>
 </head>
 <body>
-  
-  <div class="expenses__container">
-    <h1>Cost accounting</h1>
-
-    <input class="js-input" type="number">
-    <button class="js-button">Add</button>
+  <div class="main">
+    <div class="first__column">
+      <h1 class="expenses__title">Cost accounting</h1>
+      <div class="expenses__input-conatainer">
+        <input 
+          class="js-expense-input money_input czk" 
+          type="number" 
+          min="1"
+          placeholder="Enter amount">
+        <button class="js-expense-button input__button">Add</button>
+      </div>
+      <div class="expenses__input-category">
+        <select class="select__category" name="plan" id="" >
+          <option value="Transport">Transport</option>
+          <option value="Cafes and restaurants">Cafes and restaurants</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Fun">Fun</option>
+        </select>
+      </div>
+      
+      <div class="expenses__stats">
+        <div class="expesnes__limit">
+          <span class="limit stats__styles">Limit:</span>
+          <span class="js-limit limit__value value__styles czk"></span>
+        </div>
+        <div class="expenses__total">
+          <span class="total stats__styles">Sum:</span>
+          <span class="js-total total__value value__styles czk">0</span>
+        </div>
+        <div class="expenses__status">
+          <span class="status_text stats__styles">Status:</span>
+          <span class="js-status status"></span>
+        </div>
+      </div>
+      <button class="js-reset-button reset__history-button">Reset</button>
+    </div>
+      
+    <div class="second__column">
+      <h2 class="history__title stats__styles">History</h2>
+      <div class="js-history value__styles"></div>
+    </div>
   </div>
-
-  <p class="limit">Limit:<span class="js-limit"></span> CZK</p>
-  <p class="sum">Sum:<span class="js-sum"></span> CZK</p>
-  <p class="status-text">Status:<span class="js-status status"></span></p>
-
-  <h2>History</h2>
-  <div class="js-history"></div>
-  
-
-
+   
   <script src="scripts/index.js"></script>
 </body>
 </html>

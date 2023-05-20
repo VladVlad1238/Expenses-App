@@ -1,4 +1,272 @@
 const LIMIT = 10000;
+const CURRENCY = 'czk';
+const IN_LIMIT = 'In limit';
+const OUT_OF_LIMIT = 'Out of limit';
+const STATUS_RED = 'status_red';
+const RESET_SUM = '0';
+
+const inputNode = document.querySelector('.js-expense-input');
+const addExpenseButtonNode = document.querySelector('.js-expense-button');
+const historyNode = document.querySelector('.js-history');
+const sumNode = document.querySelector('.js-total');
+const limitNode = document.querySelector('.js-limit');
+const statusNode = document.querySelector('.js-status');
+const resetHistoryButton = document.querySelector('.js-reset-button')
+
+let expenses = [];
+
+
+
+//Выводит лимит 
+limitNode.innerText = LIMIT;
+statusNode.innerText = IN_LIMIT;
+
+
+addExpenseButtonNode.addEventListener('click', function() {
+  // 1. Получаем значение из поля ввода
+  if(!inputNode.value) {
+    return;
+  }
+  
+  const expense = Number(inputNode.value);
+  inputNode.value = '';
+  // 2. Сохраняем трату в список
+  expenses.push(expense);
+
+  // 3. Выведем новый список трат
+  
+  let expensesListHTML = '';
+
+  expenses.forEach(element => {
+    const elementHTML = `<li>${element} ${CURRENCY}</li>`;
+    expensesListHTML += elementHTML;
+  });
+  historyNode.innerHTML = `<ol>${expensesListHTML}</ol>`; 
+
+
+  // Выводит сумму трат 
+  let sum = 0;
+  expenses.forEach(expense => {
+    sum += expense;
+  });
+  sumNode.innerText = sum;
+
+  if(sum <= LIMIT) {
+    statusNode.innerText = IN_LIMIT;
+  } else if(sum > LIMIT) {
+    statusNode.innerText = OUT_OF_LIMIT;
+    statusNode.classList.add(STATUS_RED);
+  }
+})
+
+resetHistoryButton.addEventListener('click', function(){
+  expenses = []
+  historyNode.innerText = expenses;
+  sumNode.innerHTML = RESET_SUM;
+  statusNode.innerHTML = IN_LIMIT;
+  statusNode.classList.remove(STATUS_RED);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*const LIMIT = 10000;
 const CURRENCY = 'CZK';
 const STATUS_IN_LIMIT = 'You are in limit';
 const STATUS_OUT_OF_LIMIT = 'You are out of limit';
@@ -95,4 +363,4 @@ function renderStatus(sum) {
     statusNode.innerText = STATUS_OUT_OF_LIMIT;
     statusNode.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
   }
-}
+}*/

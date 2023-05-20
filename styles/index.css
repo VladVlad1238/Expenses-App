@@ -1,13 +1,123 @@
 body {
   margin: 0 auto;
-  width: 1150px;
+  width: 900px;
+  font-family: 'Caveat', cursive;
 }
-.expenses__container {
-  padding-top: 100px;
+
+button {
+  font-family: 'Caveat', cursive;
+  cursor: pointer;
+}
+.main{
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 100px 50px 75px;
+  margin: 0 auto;
+  width: 950px;
+  height: auto;
+  border: 1px solid black;
+}
+
+.expenses__title {
+  padding-top: 67px;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 60px;
+  color: #000000;
+}
+.expenses__input-conatainer {
+  padding-top: 10px;
+}
+.money_input {
+  margin-bottom: 20px;
+  padding: 10px 0 10px 15px;
+  width: 200px;
+  height: 20px;
+  font-size: 20px;
+  font-family: 'Caveat', cursive;
+  border: 2px solid black;
+  border-radius: 30px;
+}
+.input__button {
+  width: 150px;
+  height: 60px;
+  font-size: 25px;
+  color: white;
+  background-color: #000000;
+  border-radius: 60px;
+  border: 1px solid black;
+}
+.input__button:hover {
+  background-color: white;
+  color: black;
+}
+.reset__history-button {
+  width: 380px;
+  height: 50px;
+  font-size: 25px;
+  color: white;
+  background-color: #8B0000;
+  border-radius: 30px;
+  border: 1px solid black;
+}
+.reset__history-button:hover  {
+  color: #000000;
+  background-color: #FF6347;
+}
+
+.select__category {
+  margin-bottom: 20px;
+  padding: 10px 0 10px 15px;
+  width: 370px;
+  height: 50px;
+  color: #000000;
+  font-size: 20px;
+  font-family: 'Caveat', cursive;
+  border: 2px solid black;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.select__category:hover{
+  color: white;
+  background-color: black;
+}
+.expenses__total{
+  margin-bottom: 30px;
+}
+.expenses__status {
+  margin-bottom: 30px;
+}
+
+.second__column{
+  width: 250px;
+}
+
+.history__title {
+  padding-top: 67px;
+}
+
+ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+
+.czk::after {
+  content: 'czk';
+  margin-left: 15px;
+}
+.stats__styles {
+  font-weight: 700;
+  font-size: 50px;
+}
+.value__styles {
+  font-size: 55px;
 }
 .status {
+  font-size: 55px;
   color: green;
 }
 .status_red {
+  font-size: 55px;
   color: red;
 }
