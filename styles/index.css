@@ -1,6 +1,6 @@
 body {
   margin: 0 auto;
-  width: 900px;
+  width: 1000px;
   font-family: 'Caveat', cursive;
 }
 
@@ -89,7 +89,7 @@ button {
 }
 
 .second__column{
-  width: 250px;
+  width: 300px;
 }
 
 .history__title {
@@ -111,13 +111,16 @@ ol {
   font-size: 50px;
 }
 .value__styles {
-  font-size: 55px;
+  font-size: 50px;
 }
-.status {
-  font-size: 55px;
+.history__styles {
+  font-size: 30px;
+}
+.status_green {
+  font-size: 50px;
   color: green;
 }
 .status_red {
-  font-size: 55px;
+  font-size: 50px;
   color: red;
 }

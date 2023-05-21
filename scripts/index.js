@@ -1,71 +1,136 @@
-const LIMIT = 10000;
+
 const CURRENCY = 'czk';
 const IN_LIMIT = 'In limit';
 const OUT_OF_LIMIT = 'Out of limit';
 const STATUS_RED = 'status_red';
+const STATUS_GREEN = 'status_green';
 const RESET_SUM = '0';
 
 const inputNode = document.querySelector('.js-expense-input');
 const addExpenseButtonNode = document.querySelector('.js-expense-button');
 const historyNode = document.querySelector('.js-history');
+const categoryNode = document.querySelector('.js-category-list')
 const sumNode = document.querySelector('.js-total');
 const limitNode = document.querySelector('.js-limit');
 const statusNode = document.querySelector('.js-status');
 const resetHistoryButton = document.querySelector('.js-reset-button')
 
 let expenses = [];
+let category = [];
+//Выводит лимит
+let limit = 10000;
+limitNode.innerText = limit;
+//let limit = parseInt(limitNode.innerText);
 
 
 
-//Выводит лимит 
-limitNode.innerText = LIMIT;
-statusNode.innerText = IN_LIMIT;
+const getTotal = () => {
+  let sum = 0;
+  expenses.forEach((expense) => {
+    sum += expense.expense;
+  });
+
+  return sum;
+};
 
 
-addExpenseButtonNode.addEventListener('click', function() {
-  // 1. Получаем значение из поля ввода
-  if(!inputNode.value) {
+const renderStatus = () => {
+  const total = getTotal(expenses);
+  sumNode.innerText = total;
+
+  if(total <= limit) {
+    statusNode.innerText = IN_LIMIT;
+    statusNode.classList.remove(STATUS_RED);
+  } else if(total > limit) {
+    statusNode.innerText = `${OUT_OF_LIMIT} (${limit - total})`;
+    statusNode.classList.add(STATUS_RED);
+  }
+};
+
+const renderHistory = () => {
+  historyNode.innerHTML = "";
+  expenses.forEach((expense) => {
+    const historyItem = document.createElement('li');
+    historyItem.className = 'czk';
+    historyItem.innerText = `${expense.type} - ${expense.expense}`;
+
+    historyNode.appendChild(historyItem);
+  })
+};
+
+const render = () => {
+  renderStatus();
+  renderHistory();
+}
+
+
+const getExpesneFromUser = () => parseInt(inputNode.value);
+
+const getSelecetCategory = () => {
+   return categoryNode.value;
+};
+console.log(getSelecetCategory());
+
+console.log(category);
+const clearInput = () => {
+  inputNode.value = '';
+};
+
+const addButtonHandler = () => {
+  const type = getSelecetCategory();
+  const expense = getExpesneFromUser();
+
+  if(!expense) {
     return;
   }
+
+
+  const currentCategory = getSelecetCategory();
+
+  if(currentCategory === 'Category') {
+    alert('Select category!');
+    return;
+  }
+
+  /*const newExpense = { amount: expense, category: currentCategory };
+  console.log(newExpense);*/
+
+  expenses.push({
+    expense: expense,
+    type: type,
+  });
+
+
+  render();
+  clearInput();
+}
+
+const removeButtonHandler = () => {
+  expenses = []
+  render();
+}
+
+addExpenseButtonNode.addEventListener('click', addButtonHandler);
+resetHistoryButton.addEventListener('click', removeButtonHandler);
+  // 1. Получаем значение из поля ввода
+ 
   
-  const expense = Number(inputNode.value);
-  inputNode.value = '';
   // 2. Сохраняем трату в список
-  expenses.push(expense);
+
+
+
+
+
+
+
 
   // 3. Выведем новый список трат
   
-  let expensesListHTML = '';
-
-  expenses.forEach(element => {
-    const elementHTML = `<li>${element} ${CURRENCY}</li>`;
-    expensesListHTML += elementHTML;
-  });
-  historyNode.innerHTML = `<ol>${expensesListHTML}</ol>`; 
 
 
   // Выводит сумму трат 
-  let sum = 0;
-  expenses.forEach(expense => {
-    sum += expense;
-  });
-  sumNode.innerText = sum;
+ 
 
-  if(sum <= LIMIT) {
-    statusNode.innerText = IN_LIMIT;
-  } else if(sum > LIMIT) {
-    statusNode.innerText = OUT_OF_LIMIT;
-    statusNode.classList.add(STATUS_RED);
-  }
-})
-
-resetHistoryButton.addEventListener('click', function(){
-  expenses = []
-  historyNode.innerText = expenses;
-  sumNode.innerHTML = RESET_SUM;
-  statusNode.innerHTML = IN_LIMIT;
-  statusNode.classList.remove(STATUS_RED);
-})
 
 
 

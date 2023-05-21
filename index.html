@@ -26,9 +26,10 @@
         <button class="js-expense-button input__button">Add</button>
       </div>
       <div class="expenses__input-category">
-        <select class="select__category" name="plan" id="" >
+        <select class="js-category-list select__category" name="plan" id="" >
+          <option hidden="" disabled= "" selected="" value="Category">Category</option>
           <option value="Transport">Transport</option>
-          <option value="Cafes and restaurants">Cafes and restaurants</option>
+          <option value="Restaurants">Restaurants</option>
           <option value="Pharmacy">Pharmacy</option>
           <option value="Fun">Fun</option>
         </select>
@@ -45,7 +46,7 @@
         </div>
         <div class="expenses__status">
           <span class="status_text stats__styles">Status:</span>
-          <span class="js-status status"></span>
+          <span class="js-status status_green">In limit</span>
         </div>
       </div>
       <button class="js-reset-button reset__history-button">Reset</button>
@@ -53,7 +54,7 @@
       
     <div class="second__column">
       <h2 class="history__title stats__styles">History</h2>
-      <div class="js-history value__styles"></div>
+      <ol class="js-history history__styles "></ol>
     </div>
   </div>
    
