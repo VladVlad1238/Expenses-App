@@ -13,7 +13,8 @@ const categoryNode = document.querySelector('.js-category-list')
 const sumNode = document.querySelector('.js-total');
 const limitNode = document.querySelector('.js-limit');
 const statusNode = document.querySelector('.js-status');
-const resetHistoryButton = document.querySelector('.js-reset-button')
+const resetHistoryButtonNode = document.querySelector('.js-reset-button')
+const changeLimitButtonNode = document.querySelector('.js-chage-limit-button')
 
 let expenses = [];
 let category = [];
@@ -110,25 +111,24 @@ const removeButtonHandler = () => {
   render();
 }
 
+
+const nemLimitHandler = () => {
+  const newLimit = prompt('New limit');
+
+  const newLimitValue = parseInt(newLimit);
+
+
+  limitNode.innerText = newLimitValue;
+
+  limit = newLimitValue
+
+  render();
+}
+
 addExpenseButtonNode.addEventListener('click', addButtonHandler);
-resetHistoryButton.addEventListener('click', removeButtonHandler);
-  // 1. Получаем значение из поля ввода
- 
-  
-  // 2. Сохраняем трату в список
+resetHistoryButtonNode.addEventListener('click', removeButtonHandler);
+changeLimitButtonNode.addEventListener('click', nemLimitHandler);
 
-
-
-
-
-
-
-
-  // 3. Выведем новый список трат
-  
-
-
-  // Выводит сумму трат 
  
 
 

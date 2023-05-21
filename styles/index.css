@@ -1,3 +1,7 @@
+@import "../styles/popup.css";
+
+
+
 body {
   margin: 0 auto;
   width: 1000px;
@@ -123,4 +127,18 @@ ol {
 .status_red {
   font-size: 50px;
   color: red;
+}
+
+
+
+.limit__change-button {
+  margin-left: 40px;
+  width: 42px;
+  height: 42px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.limit__change-button:hover {
+  opacity: 0.5;
 }
