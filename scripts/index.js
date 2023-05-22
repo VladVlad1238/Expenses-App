@@ -1,4 +1,4 @@
-
+const POPUP_OPENED_CLASSNAME = 'popup__open';
 const CURRENCY = 'czk';
 const IN_LIMIT = 'In limit';
 const OUT_OF_LIMIT = 'Out of limit';
@@ -13,8 +13,14 @@ const categoryNode = document.querySelector('.js-category-list')
 const sumNode = document.querySelector('.js-total');
 const limitNode = document.querySelector('.js-limit');
 const statusNode = document.querySelector('.js-status');
-const resetHistoryButtonNode = document.querySelector('.js-reset-button')
-const changeLimitButtonNode = document.querySelector('.js-chage-limit-button')
+const resetHistoryButtonNode = document.querySelector('.js-reset-button');
+//Popup
+const popupNode = document.querySelector('.js-popup');
+const popupOpenBtnNode = document.querySelector('.js-open-change-limit-button');
+const popupCloseBtnNode = document.querySelector('.js-popup-close-btn');
+const changeLimitButtonNode = document.querySelector('.js-change-limit-btn');
+const popupInputNode = document.querySelector('.js-popup-input');
+
 
 let expenses = [];
 let category = [];
@@ -73,8 +79,12 @@ const getSelecetCategory = () => {
 console.log(getSelecetCategory());
 
 console.log(category);
+
+
+
 const clearInput = () => {
   inputNode.value = '';
+  popupInputNode.value = '';
 };
 
 const addButtonHandler = () => {
@@ -112,8 +122,14 @@ const removeButtonHandler = () => {
 }
 
 
-const nemLimitHandler = () => {
-  const newLimit = prompt('New limit');
+
+const openPopupHandler = () => {
+  popupNode.classList.toggle(POPUP_OPENED_CLASSNAME);
+};
+
+
+const newLimitHandler = () => {
+  const newLimit = popupInputNode.value;
 
   const newLimitValue = parseInt(newLimit);
 
@@ -123,11 +139,19 @@ const nemLimitHandler = () => {
   limit = newLimitValue
 
   render();
+  clearInput();
+  openPopupHandler();
+  
 }
+
+
 
 addExpenseButtonNode.addEventListener('click', addButtonHandler);
 resetHistoryButtonNode.addEventListener('click', removeButtonHandler);
-changeLimitButtonNode.addEventListener('click', nemLimitHandler);
+changeLimitButtonNode.addEventListener('click', newLimitHandler);
+popupOpenBtnNode.addEventListener('click', openPopupHandler);
+popupCloseBtnNode.addEventListener('click', openPopupHandler);
+
 
  
 
