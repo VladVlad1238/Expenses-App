@@ -144,8 +144,6 @@ const newLimitHandler = () => {
   
 }
 
-
-
 addExpenseButtonNode.addEventListener('click', addButtonHandler);
 resetHistoryButtonNode.addEventListener('click', removeButtonHandler);
 changeLimitButtonNode.addEventListener('click', newLimitHandler);
