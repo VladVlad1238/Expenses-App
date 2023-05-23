@@ -5,6 +5,8 @@ const OUT_OF_LIMIT = 'Out of limit';
 const STATUS_RED = 'status_red';
 const STATUS_GREEN = 'status_green';
 const RESET_SUM = '0';
+const STORAGE_LABLE_LIMIT = 'limit';
+const STORAGE_LABLE_EXPENSES = 'expenses';
 
 const inputNode = document.querySelector('.js-expense-input');
 const addExpenseButtonNode = document.querySelector('.js-expense-button');
@@ -22,12 +24,24 @@ const changeLimitButtonNode = document.querySelector('.js-change-limit-btn');
 const popupInputNode = document.querySelector('.js-popup-input');
 
 
+
+//Выводит лимит
+let limit = parseInt(limitNode.innerText);
+
 let expenses = [];
 let category = [];
-//Выводит лимит
-let limit = 10000;
-limitNode.innerText = limit;
-//let limit = parseInt(limitNode.innerText);
+
+const initLimit = () => {
+
+  const setLimitFromStorage = parseInt(localStorage.getItem(STORAGE_LABLE_LIMIT));
+  if(!setLimitFromStorage) {
+    return;
+  }
+  limitNode.innerText = setLimitFromStorage;
+  limit = parseInt(limitNode.innerText);
+};
+
+initLimit();
 
 
 
@@ -54,6 +68,8 @@ const renderStatus = () => {
   }
 };
 
+
+
 const renderHistory = () => {
   historyNode.innerHTML = "";
   expenses.forEach((expense) => {
@@ -65,11 +81,21 @@ const renderHistory = () => {
   })
 };
 
+
+
 const render = () => {
   renderStatus();
   renderHistory();
 }
 
+const expensesFromStorageString = localStorage.getItem(STORAGE_LABLE_EXPENSES);
+const expensesFromStorage = JSON.parse(expensesFromStorageString);
+
+
+if(Array.isArray(expensesFromStorage)) {
+  expenses = expensesFromStorage;
+};
+render();
 
 const getExpesneFromUser = () => parseInt(inputNode.value);
 
@@ -87,6 +113,15 @@ const clearInput = () => {
   popupInputNode.value = '';
 };
 
+
+
+const expensesStringFromStorage = () => {
+  const expensesString = JSON.stringify(expenses);
+  localStorage.setItem(STORAGE_LABLE_EXPENSES, expensesString);
+}
+
+
+
 const addButtonHandler = () => {
   const type = getSelecetCategory();
   const expense = getExpesneFromUser();
@@ -96,25 +131,24 @@ const addButtonHandler = () => {
   }
 
 
-  const currentCategory = getSelecetCategory();
+const currentCategory = getSelecetCategory();
 
   if(currentCategory === 'Category') {
     alert('Select category!');
     return;
   }
 
-  /*const newExpense = { amount: expense, category: currentCategory };
-  console.log(newExpense);*/
-
   expenses.push({
     expense: expense,
     type: type,
   });
 
+  expensesStringFromStorage();
 
   render();
   clearInput();
 }
+
 
 const removeButtonHandler = () => {
   expenses = []
@@ -122,10 +156,10 @@ const removeButtonHandler = () => {
 }
 
 
-
 const openPopupHandler = () => {
   popupNode.classList.toggle(POPUP_OPENED_CLASSNAME);
 };
+
 
 
 const newLimitHandler = () => {
@@ -136,13 +170,15 @@ const newLimitHandler = () => {
 
   limitNode.innerText = newLimitValue;
 
-  limit = newLimitValue
+  limit = newLimitValue;
+  localStorage.setItem(STORAGE_LABLE_LIMIT, newLimitValue);
 
   render();
   clearInput();
   openPopupHandler();
-  
 }
+
+
 
 addExpenseButtonNode.addEventListener('click', addButtonHandler);
 resetHistoryButtonNode.addEventListener('click', removeButtonHandler);
